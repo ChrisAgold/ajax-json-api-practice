@@ -1,0 +1,164 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="app.js"></script>
+    <title>Ajax</title>
+</head>
+<body>
+
+<div id="output1"></div>
+<div id="output2"></div>
+
+<script>
+    // fetching the data from the api
+    fetch('https://codeup-json-server.glitch.me/movies')
+        .then(function (response) {
+            return response.json();
+        })
+        .then(function (myJson) {
+            //console.log(JSON.stringify(myJson));
+        })
+    // ************** OBJECTS ******************* //
+
+    // creating an object //
+    // const myCar ={"color":"red"}
+    // // adding data to an object
+    // myCar.model = "Mustang";
+    // myCar.company = "Ford";
+    // myCar.price = 50000;
+    // console.log(myCar);
+
+    // JSON & JS Objects //
+    // JSON --> all keys must be quoted
+
+    // JS Object Ex:
+    const myCar1 = {
+        color: "red",
+        model: "mustang",
+        company: "ford",
+        year: 2019,
+        price: 50000
+    }
+    //console.log(myCar1);
+    // JSON Object Ex:
+    const myCar2 = {
+        "color": "red",
+        "model": "mustang",
+        "company": "ford",
+        "year": 2019,
+        "price": 50000
+    }
+    //console.log(myCar2);
+    const temp = 'color';
+    // console.log(myCar2[temp]); // returns red from json object
+    // console.log(myCar1.color); // returns red from js object
+    // console.log(myCar1["color"]); // returns red from js object (can call using [])
+
+    // Output To Webpage //
+    // const output1 = document.getElementById('output1');
+    // const output2 = document.getElementById('output2');
+    // // creat object
+    // const myObj = {
+    //     "firstName": "Mike",
+    //     "lastName": "Smith",
+    //     "age": 30
+    // }
+    //console.log(myObj);
+    // output values to page
+    // output1.textContent = myObj.firstName;
+    // output2.textContent = myObj.lastName;
+
+    // ************** Arrays ******************* //
+
+    // Array of Items //
+
+    // const cars = {"car": ["blue","black"]}; // array
+    // const cars1 = {"car1":{"color":"blue"}, "car2":{"color":"black"}}; // obj
+    // const cars2 = {"car1":{"color":"blue","model":"mustang"}, "car2":{"color":"black","model":"f150"}}; // obj
+    // const cars3 = {"myCars":[{"color":"blue","model":"mustang"}, {"color":"black","model":"f150"}]}; // obj array
+    // let val = cars3;
+    // console.log(val);
+
+    // ************** Lööps ******************* //
+
+    // array obj
+    const myObj = {
+        "people": [
+            {"first": "Mike", "last": "Smith", "age": 30},
+            {"first": "Jane", "last": "Doe", "age": 20},
+            {"first": "John", "last": "Smithy", "age": 40}
+        ],
+        "places": [
+            {"location": "Toronto"},
+            {"location": "New York"}
+        ]
+    };
+
+    // loop through myObj
+    for (let x = 0; x < myObj.length; x++) {
+        //console.log(myObj.people[x]);
+        //console.log(myObj.people[x].first); // will return just the first names
+    }
+
+    // forEach loop
+    myObj.people.forEach(function (person) { // can pass item, index
+        //console.log(person.first);
+        //console.log(index);
+    });
+    //console.log(myObj);
+
+    // fetching the data from the api using forEach //
+    fetch('https://codeup-json-server.glitch.me/movies').then(function (response) {
+        return response.json();
+    }).then(function (data) {
+        data.forEach(function (title) {
+            //console.log(data);
+        })
+    });
+
+    // more looping (using above myObj) //
+    for (let prop in myObj.people) {
+        let temp = myObj.people[prop]
+        //console.log(temp.first + ' ' + temp.last);
+    }
+
+    // using .map to make new obj
+    const myObj2 = myObj.people.map(function (key, index) {
+        //console.log(key, index);
+        return key.first + '' + key.last;
+    });
+    //console.log(myObj2);
+
+    // JSON parse & JSON Stringify //
+    // convert string into obj
+    // convert obj into a string
+
+    // create obj
+    const json = {first:"Jason",last:"Maynard",count:0};
+    //console.log(json);
+    // convert to string
+    const str = JSON.stringify(json);
+    //console.log(str);
+    // convert back to obj
+    const json1 = JSON.parse(str);
+    //console.log(json1);
+    json1.count++;
+    //console.log(json1);
+    // turn back to string
+    const str1 = JSON.stringify(json1);
+    //console.log(str1);
+
+
+
+
+
+</script>
+
+</body>
+</html>
