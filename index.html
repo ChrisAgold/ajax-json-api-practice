@@ -20,13 +20,13 @@
 
 <script>
     // fetching the data from the api
-    fetch('') // add api key
-        .then(function (response) {
-            return response.json();
-        })
-        .then(function (myJson) {
-            //console.log(JSON.stringify(myJson));
-        })
+    // fetch('') // add api key
+    //     .then(function (response) {
+    //         return response.json();
+    //     })
+    //     .then(function (myJson) {
+    //         //console.log(JSON.stringify(myJson));
+    //     })
     // ************** OBJECTS ******************* //
 
     // creating an object //
@@ -117,13 +117,13 @@
     //console.log(myObj);
 
     // fetching the data from the api using forEach //
-    fetch('').then(function (response) { // add api key
-        return response.json();
-    }).then(function (data) {
-        data.forEach(function (title) {
-            //console.log(data);
-        })
-    });
+    // fetch('').then(function (response) { // add api key
+    //     return response.json();
+    // }).then(function (data) {
+    //     data.forEach(function (title) {
+    //         //console.log(data);
+    //     })
+    // });
 
     // more looping (using above myObj) //
     for (let prop in myObj.people) {
@@ -190,25 +190,36 @@
 
 
     var xhr = new XMLHttpRequest();
-    xhr.onreadystatechange = function() {
+    xhr.onreadystatechange = function () {
         //console.log(xhr);
-        if(xhr.readyState===4 && xhr.status===200){
+        if (xhr.readyState === 4 && xhr.status === 200) {
             console.log(xhr.responseText);
             // convert to json to use data
             let temp = JSON.parse(xhr.responseText);
             console.log(temp); // returns json data from server
+            // for loop to loop though data
+            for (let x = 0; x < temp.length; x++) {
+
+                console.log(temp[x]);
+                let movie = temp[x];
+                // output all movie names to html
+                output1.innerHTML += `${movie.title}<br>
+                ${movie.plot}<br><img
+                src="${movie.poster}"><br>` // output img
+            }
+
             // output1 obj to webpage (grabbing first movie object: Up)
-            output1.textContent = `${temp[0].title}` // [] refers to index of object you want to grab data from
+            //output1.textContent = `${temp[0].title}` // [] refers to index of object you want to grab data from
             // output2 obj to webpage (returns seconds movie's plot)
-            output2.textContent = `${temp[1].plot}`
+            //output2.textContent = `${temp[1].plot}`
         }
     }
     //******** show loading of page ***********//
-    xhr.onprogress = function(){
-        //console.log('loading');
+    xhr.onprogress = function () {
+        console.log('loading');
     }
-    xhr.onload = function(){
-        //console.log('done');
+    xhr.onload = function () {
+        console.log('done');
     }
     xhr.open('get', ''); // add api key
     xhr.send();
