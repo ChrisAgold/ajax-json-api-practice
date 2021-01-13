@@ -15,9 +15,12 @@
 <div id="output1"></div>
 <div id="output2"></div>
 
+<div class="output1"></div>
+<div class="output2"></div>
+
 <script>
     // fetching the data from the api
-    fetch('https://codeup-json-server.glitch.me/movies')
+    fetch('') // add api key
         .then(function (response) {
             return response.json();
         })
@@ -114,7 +117,7 @@
     //console.log(myObj);
 
     // fetching the data from the api using forEach //
-    fetch('https://codeup-json-server.glitch.me/movies').then(function (response) {
+    fetch('').then(function (response) { // add api key
         return response.json();
     }).then(function (data) {
         data.forEach(function (title) {
@@ -140,7 +143,7 @@
     // convert obj into a string
 
     // create obj
-    const json = {first:"Jason",last:"Maynard",count:0};
+    const json = {first: "Jason", last: "Maynard", count: 0};
     //console.log(json);
     // convert to string
     const str = JSON.stringify(json);
@@ -154,10 +157,61 @@
     const str1 = JSON.stringify(json1);
     //console.log(str1);
 
+    // ************** AJAX API REQUEST ******************* //
+
+    //*************** function makes json data able to be used on the webpage*********************//
+    // create xhr obj
+    // var xhr = new XMLHttpRequest();
+    // xhr.onreadystatechange = function() {
+    //     //console.log(xhr);
+    //     if(xhr.readyState===4 && xhr.status===200){
+    //         console.log(xhr.responseText);
+    //         // convert to json to use data
+    //         let temp = JSON.parse(xhr.responseText);
+    //         console.log(temp); // returns json data from server
+    //     }
+    // }
+    // //******** show loading of page ***********//
+    // xhr.onprogress = function(){
+    //     //console.log('loading');
+    // }
+    // xhr.onload = function(){
+    //     //console.log('done');
+    // }
+    //
+    // xhr.open('get', ''); // add api key
+    // xhr.send();
+
+    //*************** AJAX xHR request (get data onto webpage) *********************//
+
+    // refers to DIVs created in html
+    const output1 = document.querySelector('.output1');
+    const output2 = document.querySelector('.output2');
 
 
-
-
+    var xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function() {
+        //console.log(xhr);
+        if(xhr.readyState===4 && xhr.status===200){
+            console.log(xhr.responseText);
+            // convert to json to use data
+            let temp = JSON.parse(xhr.responseText);
+            console.log(temp); // returns json data from server
+            // output1 obj to webpage (grabbing first movie object: Up)
+            output1.textContent = `${temp[0].title}` // [] refers to index of object you want to grab data from
+            // output2 obj to webpage (returns seconds movie's plot)
+            output2.textContent = `${temp[1].plot}`
+        }
+    }
+    //******** show loading of page ***********//
+    xhr.onprogress = function(){
+        //console.log('loading');
+    }
+    xhr.onload = function(){
+        //console.log('done');
+    }
+    xhr.open('get', ''); // add api key
+    xhr.send();
 </script>
 
 </body>
