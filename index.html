@@ -17,8 +17,11 @@
 
 <div class="output1"></div>
 <div class="output2"></div>
+<div id="movieResult"></div>
+<!--FORM-->
 
 <script>
+
     // fetching the data from the api
     // fetch('') // add api key
     //     .then(function (response) {
@@ -185,44 +188,99 @@
     //*************** AJAX xHR request (get data onto webpage) *********************//
 
     // refers to DIVs created in html
+    // const output1 = document.querySelector('.output1');
+    // const output2 = document.querySelector('.output2');
+    //
+    // var xhr = new XMLHttpRequest();
+    // xhr.onreadystatechange = function () {
+    //     //console.log(xhr);
+    //     if (xhr.readyState === 4 && xhr.status === 200) {
+    //         console.log(xhr.responseText);
+    //         // convert to json to use data
+    //         let temp = JSON.parse(xhr.responseText);
+    //         console.log(temp); // returns json data from server
+    //         // for loop to loop though data
+    //         for (let x = 0; x < temp.length; x++) {
+    //
+    //             console.log(temp[x]);
+    //             let movie = temp[x];
+    //             // output all movie names to html
+    //             output1.innerHTML += `${movie.title}<br>
+    //             ${movie.plot}<br><img
+    //             src="${movie.poster}"><br>` // output img
+    //         }
+
+    // output1 obj to webpage (grabbing first movie object: Up)
+    //output1.textContent = `${temp[0].title}` // [] refers to index of object you want to grab data from
+    // output2 obj to webpage (returns seconds movie's plot)
+    //output2.textContent = `${temp[1].plot}`
+    //}
+    // }
+    //******** show loading of page ***********//
+    // xhr.onprogress = function () {
+    //     console.log('loading');
+    // }
+    // xhr.onload = function () {
+    //     console.log('done');
+    // }
+    // xhr.open('get', 'https://codeup-json-server.glitch.me/movies'); // add api key
+    // xhr.send();
+
+    //******** JS FETCH ***********//
     const output1 = document.querySelector('.output1');
     const output2 = document.querySelector('.output2');
+    const url = 'https://codeup-json-server.glitch.me/movies';
 
+    let loader = `<div class="boxLoading">LOADING...</div>`;
 
-    var xhr = new XMLHttpRequest();
-    xhr.onreadystatechange = function () {
-        //console.log(xhr);
-        if (xhr.readyState === 4 && xhr.status === 200) {
-            console.log(xhr.responseText);
-            // convert to json to use data
-            let temp = JSON.parse(xhr.responseText);
-            console.log(temp); // returns json data from server
-            // for loop to loop though data
-            for (let x = 0; x < temp.length; x++) {
+    document.getElementById('movieResult').innerHTML = loader;
 
-                console.log(temp[x]);
-                let movie = temp[x];
-                // output all movie names to html
-                output1.innerHTML += `${movie.title}<br>
-                ${movie.plot}<br><img
-                src="${movie.poster}"><br>` // output img
-            }
+    var data = fetchData()
 
-            // output1 obj to webpage (grabbing first movie object: Up)
-            //output1.textContent = `${temp[0].title}` // [] refers to index of object you want to grab data from
-            // output2 obj to webpage (returns seconds movie's plot)
-            //output2.textContent = `${temp[1].plot}`
-        }
+    //while fetchData === undefined, loading= true, loading=false
+
+    function fetchData() { // async function
+        fetch(url).then(function (rep) {
+            return rep.json()
+        }).then(function (data) {
+            let result = `<h2> MOVIE APP</h2>`;
+            console.log(data);
+            data.forEach(function (movie) {
+                result +=
+                    `<div>
+                    <h5> Movie ID: ${movie.id} </h5>
+                    <ul>
+                        <li>Movie name: ${movie.title}</li>
+                        <li>Movie year: ${movie.year}</li>
+                        <li><img src="${movie.poster}"></li>
+                         <button>Edit</button>
+                    </ul>
+                </div>`;
+                console.log(movie.title);
+                // output1.innerHTML += `${movie.title}<br>
+                //  ${movie.plot}<br><img
+                // src="${movie.poster}"><br>` // output img
+            });
+
+            result += `
+            <form>
+                <div class="form-group">
+                    <label for="exampleFormControlInput1">Add A Movie</label>
+                    <input type="text" class="form-control" id="Title" placeholder="Title">
+                    <input type="text" class="form-control" id="Rating" placeholder="Rating">
+            </form>
+            <button id="submit">SUBMIT</button>
+
+               `
+            result += ``
+            document.getElementById('movieResult').innerHTML = result;
+            document.getElementById("submit").addEventListener("click", function (event) {
+                event.preventDefault()
+
+            });
+        });
     }
-    //******** show loading of page ***********//
-    xhr.onprogress = function () {
-        console.log('loading');
-    }
-    xhr.onload = function () {
-        console.log('done');
-    }
-    xhr.open('get', ''); // add api key
-    xhr.send();
+
 </script>
 
 </body>
