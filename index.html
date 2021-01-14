@@ -264,18 +264,28 @@
 
             result += `
             <form>
-                <div class="form-group">
-                    <label for="exampleFormControlInput1">Add A Movie</label>
-                    <input type="text" class="form-control" id="Title" placeholder="Title">
-                    <input type="text" class="form-control" id="Rating" placeholder="Rating">
-            </form>
-            <button id="submit">SUBMIT</button>
+                <input type="text"  id="Title" value="" >
+                <input type="text"  id="Rating" value="" >
+           </form>
+            <button id="submit">SUBMIT</button>`
 
-               `
-            result += ``
             document.getElementById('movieResult').innerHTML = result;
             document.getElementById("submit").addEventListener("click", function (event) {
                 event.preventDefault()
+                var title = document.getElementById("Title").value;
+                var rating = document.getElementById("Rating").value;
+
+                //console.log(input)
+
+                // <form id="form" onsubmit="return false;">
+                //     <input style="position:absolute; top:80%; left:5%; width:40%;" type="text" id="userInput" />
+                //     <input style="position:absolute; top:50%; left:5%; width:40%;" type="submit" onclick="othername();" />
+                //     </form>
+                //
+                // function othername() {
+                //     var input = document.getElementById("userInput").value;
+                //     alert(input);
+                // }
 
             });
         });
