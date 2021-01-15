@@ -223,73 +223,124 @@
     // xhr.onload = function () {
     //     console.log('done');
     // }
-    // xhr.open('get', 'https://codeup-json-server.glitch.me/movies'); // add api key
+    // xhr.open('get', ''); // add api key
     // xhr.send();
 
+    //******** Project App Notes ***********//
     //******** JS FETCH ***********//
+    // const output1 = document.querySelector('.output1');
+    // const output2 = document.querySelector('.output2');
+    // const url = ''; // add api key
+    //
+    // let loader = `<div class="boxLoading">LOADING...</div>`;
+    //
+    // document.getElementById('movieResult').innerHTML = loader;
+    //
+    // var data = fetchData()
+    //
+    // //while fetchData === undefined, loading= true, loading=false
+    //
+    // function fetchData() {
+    //     fetch(url).then(function (rep) {
+    //         return rep.json()
+    //     }).then(function (data) {
+    //         let result = `<h2> APP</h2>`;
+    //         console.log(data);
+    //         data.forEach(function (movie) {
+    //             result +=
+    //                 `<div>
+    //                 <h5> Movie ID: ${movie.id} </h5>
+    //                 <ul>
+    //                     <li>Movie name: ${movie.title}</li>
+    //                     <li>Movie year: ${movie.year}</li>
+    //                     <li><img src="${movie.poster}"></li>
+    //                      <button>Edit</button>
+    //                 </ul>
+    //             </div>`;
+    //             console.log(movie.title);
+    //             // output1.innerHTML += `${movie.title}<br>
+    //             //  ${movie.plot}<br><img
+    //             // src="${movie.poster}"><br>` // output img
+    //         });
+    //
+    //         result += `
+    //         <form>
+    //             <input type="text"  id="Title" value="" >
+    //             <input type="text"  id="Rating" value="" >
+    //        </form>
+    //         <button id="submit">SUBMIT</button>`
+    //
+    //         document.getElementById('movieResult').innerHTML = result;
+    //         document.getElementById("submit").addEventListener("click", function (event) {
+    //             event.preventDefault()
+    //             var title = document.getElementById("Title").value;
+    //             var rating = document.getElementById("Rating").value;
+    //
+    //             //console.log(input)
+    //
+    //             // <form id="form" onsubmit="return false;">
+    //             //     <input style="position:absolute; top:80%; left:5%; width:40%;" type="text" id="userInput" />
+    //             //     <input style="position:absolute; top:50%; left:5%; width:40%;" type="submit" onclick="othername();" />
+    //             //     </form>
+    //             //
+    //             // function othername() {
+    //             //     var input = document.getElementById("userInput").value;
+    //             //     alert(input);
+    //             // }
+    //
+    //         });
+    //     });
+    // }
+    //******** Project App Notes ***********//
+
+    //******** JS FETCH ***********//
+
+    // const output1 = document.querySelector('.output1');
+    // const output2 = document.querySelector('.output2');
+    // const url = 'https://randomuser.me/api/?results=10';
+    // fetchData();
+    //
+    // function fetchData() {
+    //     fetch(url).then(function (rep) {
+    //         return rep.json()
+    //     }).then(function (data) {
+    //         console.log(data.results);
+    //         data.results.forEach(function (person) {
+    //             console.log(person);
+    //             output1.innerHTML += `${person.name.first} ${person.name.last} <img src="${person.picture.thumbnail}"><br>`;
+    //         })
+    //     })
+    // }
+
+    //******** JS MAP ***********//
+
     const output1 = document.querySelector('.output1');
     const output2 = document.querySelector('.output2');
-    const url = 'https://codeup-json-server.glitch.me/movies';
+    const url = 'https://randomuser.me/api/?results=10';
+    fetchData();
 
-    let loader = `<div class="boxLoading">LOADING...</div>`;
-
-    document.getElementById('movieResult').innerHTML = loader;
-
-    var data = fetchData()
-
-    //while fetchData === undefined, loading= true, loading=false
-
-    function fetchData() { // async function
+    function fetchData() {
         fetch(url).then(function (rep) {
             return rep.json()
         }).then(function (data) {
-            let result = `<h2> MOVIE APP</h2>`;
-            console.log(data);
-            data.forEach(function (movie) {
-                result +=
-                    `<div>
-                    <h5> Movie ID: ${movie.id} </h5>
-                    <ul>
-                        <li>Movie name: ${movie.title}</li>
-                        <li>Movie year: ${movie.year}</li>
-                        <li><img src="${movie.poster}"></li>
-                         <button>Edit</button>
-                    </ul>
-                </div>`;
-                console.log(movie.title);
-                // output1.innerHTML += `${movie.title}<br>
-                //  ${movie.plot}<br><img
-                // src="${movie.poster}"><br>` // output img
-            });
-
-            result += `
-            <form>
-                <input type="text"  id="Title" value="" >
-                <input type="text"  id="Rating" value="" >
-           </form>
-            <button id="submit">SUBMIT</button>`
-
-            document.getElementById('movieResult').innerHTML = result;
-            document.getElementById("submit").addEventListener("click", function (event) {
-                event.preventDefault()
-                var title = document.getElementById("Title").value;
-                var rating = document.getElementById("Rating").value;
-
-                //console.log(input)
-
-                // <form id="form" onsubmit="return false;">
-                //     <input style="position:absolute; top:80%; left:5%; width:40%;" type="text" id="userInput" />
-                //     <input style="position:absolute; top:50%; left:5%; width:40%;" type="submit" onclick="othername();" />
-                //     </form>
-                //
-                // function othername() {
-                //     var input = document.getElementById("userInput").value;
-                //     alert(input);
-                // }
-
+            console.log(data.results);
+            data.results.forEach(function (person) {
+                console.log(person);
+                let people = data.results.map(function (el) {
+                    console.log(el);
+                    // return only first names from the obj data
+                    return el.name.first + '' + el.name.last;
+                });
+                console.log(people);
+                // loop through each person in the array
+                people.forEach(function (person){
+                    console.log(person);
+                    output1.innerHTML += `${person}<br>`
+                });
             });
         });
     }
+
 
 </script>
 
